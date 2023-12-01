@@ -1,0 +1,39 @@
+Scenario Overview:
+
+We have established two primary Datacentres, located in Hong Kong and Singapore. Each of these Datacentres houses both Production (Prod) and Disaster Recovery (DR) sites designed to function in an Active-Active state, ensuring continuous operations if either Datacentre is operational. This setup includes the implementation of a total of four Kafka Clusters spread across the Prod and DR sites, with each cluster comprising three Zookeeper and three Kafka Brokers.
+
+Kafka Cluster Configuration:
+
+Within each Datacentre's Prod and DR sites, there are three Zookeeper nodes and three Kafka Brokers, ensuring redundancy and fault tolerance. This setup optimizes performance and reliability while maintaining consistency across clusters.
+
+Data Replication Strategy:
+
+Data from the Production Kafka Cluster is continuously replicated to its Disaster Recovery counterpart, guaranteeing data consistency and minimizing potential data loss in case of an outage or failure in the Production environment.
+
+Failover and Disaster Recovery Plan:
+
+In the event of a Datacentre failure, the live data will be shifted seamlessly to the available site. During this transition, a program retrieves stored snapshots of Kafka data from a Network-Attached Storage (NAS) drive. These snapshots enable the rapid restoration of data, significantly reducing the risk of data loss during the failover process.
+
+Program Implementation:
+
+Specific programs are responsible for managing data consumption and production within the Kafka Clusters. These programs autonomously detect the availability of the clusters, ensuring a smooth transition between the Production and Disaster Recovery sites as needed.
+
+Snapshotting Mechanism:
+
+Snapshots of Kafka data are regularly taken and stored in a NAS drive. These snapshots serve as checkpoints, facilitating efficient data restoration with minimal loss in case of a failover event.
+
+Scalability and Performance Considerations:
+
+The architecture is designed with scalability in mind, allowing for seamless expansion as demands grow. Performance optimization measures are integrated to ensure efficient handling of the Kafka Clusters' workload.
+
+Monitoring and Maintenance:
+
+Robust monitoring tools are implemented to oversee the system's health and performance. Regular maintenance practices are scheduled to uphold the system's reliability and efficiency.
+
+Security Measures:
+
+Stringent security measures are in place to protect the infrastructure, encompassing access controls, encryption protocols, and other relevant security practices to safeguard data integrity and confidentiality.
+
+Challenges and Mitigations:
+
+While the architecture is resilient, potential challenges such as network disruptions or hardware failures are acknowledged. Mitigation strategies, including redundancies and failover mechanisms, are implemented to counteract these challenges and ensure continuous operations.
