@@ -1,0 +1,21 @@
+Scenario Overview:
+
+The infrastructure comprises two geographically distributed Datacentres located in Hong Kong and Singapore. Each Datacentre houses both Production (Prod) and Disaster Recovery (DR) sites, designed to operate in an Active-Active state when the Datacentre is operational. The setup includes the establishment of two ElasticSearch Clusters, one in each Datacentre, simultaneously serving the Prod and DR environments within the same Datacentre. Both Datacentres are connected to either AWS S3, Hitachi Content Platform (HCP), or Network-Attached Storage (NAS) for backup storage.
+
+Snapshot Strategy:
+
+To address application criticality, regular snapshots of the ElasticSearch Clusters are taken and stored in the designated backup storage. These snapshots occur at daily, weekly, and monthly intervals, enabling the preservation of ElasticSearch Cluster data. These snapshots act as a fallback mechanism if the default Cross Cluster Replication encounters any disruptions, providing an alternative data recovery solution.
+
+Cross Cluster Replication and Backup Storage:
+
+Cross Cluster Replication (CCR) is pre-configured within the ElasticSearch Clusters, facilitating data replication between the clusters in the Prod and DR environments. However, in the event of any disruption in CCR, the snapshots stored in the backup storage serve as a fail-safe. These snapshots allow the reconstruction of the ElasticSearch Cluster as a third copy of data, complementing the existing copies housed within the primary ElasticSearch clusters in both Datacentres.
+
+Redundancy and Data Preservation:
+
+This setup ensures redundancy by maintaining two primary copies of data within the ElasticSearch Clusters across the Datacentres. The snapshots stored in the backup storage serve as an additional layer of data preservation, safeguarding against potential disruptions or failures in the primary replication mechanism.
+
+Disaster Recovery and Data Restoration:
+
+In the event of a failure or disruption impacting the ElasticSearch Clusters or their replication mechanisms, the stored snapshots can be utilized to reconstruct the clusters, ensuring continuity of operations and minimal data loss. This restoration process serves as a crucial element in the disaster recovery strategy, allowing for swift and reliable recovery of the ElasticSearch Clusters.
+
+Feel free to elaborate further on specific technical details or implementation methodologies within this framework to provide a more comprehensive understanding of the architecture.
